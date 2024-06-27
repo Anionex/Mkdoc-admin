@@ -1,0 +1,103 @@
+pre {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+}
+code {
+    background: #f5f5f5;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+
+.sidebar {
+    display: inline-block;
+    position: relative; /* create a positioning context */
+    width: 200px; /* default width */
+    height: 95vh;
+    background-color: #f0f0f0; /* add some style to the sidebar */
+    padding: 10px;
+    transition: width 0.3s ;
+    overflow-x: hidden; /* add this to prevent horizontal overflow */
+}
+.sidebar.collapsed {
+    width: 0%; /* collapsed width */
+    
+}
+.sidebar-container.collapsed {
+    width: 5vw; /* collapsed width */
+    
+}
+.sidebar p {
+    white-space: nowrap; /* add this to prevent text wrapping */
+    overflow-x: hidden; /* add this to hide excess text */
+    text-overflow: clip; 
+}
+.sidebar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* add this to align the button to the top */
+    transition: width 1s;
+}
+.collapse-button {
+    margin-left: 10px; /* add some space between the sidebar and the button */
+    margin-right: 10px; /* add some space between the button and the edit area */
+    width: 3vw;
+    height: 5vh;
+}
+.wrap-container {
+    display: flex;
+    flex-direction: row;
+}
+.main-container {
+    flex: 1; /* take up the remaining space */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.edit-area, .preview-area{
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    background-color: rgb(206, 233, 224);
+    border:1px solid grey;
+    border-radius: 2%;
+    margin: 1vh 5vh 5vh 0;
+    flex: 1; /* take up equal space */
+}
+.wrap-area{
+    flex:1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.my-button{
+    margin:1%;
+    width: 10vh;
+    height: 3vh;
+    border-radius: 5%;
+    border: 0;
+    background-color: rgb(65, 168, 220);
+}
+.wrap-button{
+    display: flex;
+    flex-direction: row;
+}
+.text-area{
+    margin:1vh 1vw;
+    margin-top:0;
+    background-color: whitesmoke;
+    flex-grow: 1;
+    font-size:large;
+}
+#markdown-content{
+    border-color: black;
+    border:1px;
+    border-radius: 1%;
+    margin:1vh 1vw;
+    margin-top:0;
+    background-color: whitesmoke;
+    height: 95%;
+}

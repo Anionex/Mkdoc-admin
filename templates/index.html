@@ -2,86 +2,74 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>test</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Mkdoc Admin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
-
 </head>
 <body>
-    <div class="wrap-container"> <!-- flex容器 row-->
+    <div class="app-container">
         <div class="sidebar-container">
-            <div class="sidebar">
-                <h2>FileBrowser</h2>
-                <p></p>
+            <div class="sidebar-header">
+                <img src="{{ url_for('static', filename='images/mkdoc_logo.png')}}" alt="">
+                <h1>Mkdoc Admin</h1>
             </div>
-        <button class="collapse-button" onclick="collapseSidebar()">📑</button>
+            <div class="sidebar">
+                <div class="side-bar-tools">
+                    <form class="align-center" action="">
+                        <textarea name="" class="edit_file_name" ></textarea>
+                        <button type="submit" class="my-button-2">+</button>
+                    </form>
+                    
+                </div>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('handle_files', subpath=pre_directory)}}">📁 .../</a>
+                    </li>
+                    {% for item in items %}
+                        <li>
+                            {% if item.type == 'folder' %}
+                            <a href="{{ url_for('handle_files', subpath=dir +'/'+ item.name)}}">📁 {{ item.name }}/</a>
+                            {% else %}
+                            <a href="{{ url_for('handle_files', subpath=dir +'/'+ item.name) }}">📃 {{ item.name }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
         </div>
         
         <div class="main-container">
-            <div class="wrap-area">
+            <div class="top-bar">
+                <div class="wrap-button">
+                    <svg onclick="collapseSidebar()" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="cursor-pointer" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M11.28 9.53 8.81 12l2.47 2.47a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-3-3a.75.75 0 0 1 0-1.06l3-3a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734Z"></path><path d="M3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25V3.75C2 2.784 2.784 2 3.75 2ZM3.5 3.75v16.5c0 .138.112.25.25.25H15v-17H3.75a.25.25 0 0 0-.25.25Zm13 16.75h3.75a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25H16.5Z"></path></svg>
+                    <button onclick="confirm_save()" type="button" form="edit-form" class="save-button my-button">save</button>
+                    <button onclick="confirm_discard()" class="discard-button my-button">discard changes</button>
+                </div>
+            </div>
+            <div class="content-area">
                 <div class="edit-area">
-                    <h2>Edit Area</h2>
-                    <form style="display:flex; flex-direction: column; height: 100%; width: 100%;" method="POST" action="{{url_for('init_content',subpath=subpath)}}">
-                        <div class="wrap-button">
-                            <button type="submit" class="save-button my-button">save</button>
-                            <button class="discard-button my-button">discard</button>
-                        </div>
+                    <form id="edit-form" method="POST" action="{{url_for('handle_files',subpath=subpath)}}">
                         <textarea name="content" class="text-area" id="markdown-input">{{content}}</textarea>
                     </form>
                 </div>
-            </div>
-            <div class="wrap-area">
                 <div class="preview-area">
-                    <h2>Preview Area</h2>
-                    <div class="wrap-button">
-                        <button class="save-button my-button">empty</button>
-                        <button class="discard-button my-button">empty</button>
+                    <div class="preview-header">
+                        <h2>Preview Area</h2>
+                        <div class="preview-tabs">
+                            <button class="tab-button active">Markdown</button>
+                            <button class="tab-button">Svg</button>
+                            <button class="tab-button">More</button>
+                        </div>
                     </div>
                     <div id="markdown-content"></div>
-
-                    
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function collapseSidebar() {
-            document.querySelector('.sidebar').classList.toggle('collapsed');
-            document.querySelector('.sidebar-container').classList.toggle('collapsed');
-        }
-    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const textarea = document.getElementById('markdown-input');
-            const previewArea = document.getElementById('markdown-content');
-    
-            // 设置 marked 选项
-            if (typeof marked !== 'undefined') {
-                marked.setOptions({
-                    highlight: function(code, lang) {
-                        const validLanguage = hljs.getLanguage(lang) ? lang : 'plaintext';
-                        return hljs.highlight(code, { language: validLanguage }).value;
-                    }
-                });
-    
-                // 监听 textarea 输入事件
-                textarea.addEventListener('input', function() {
-                    const markdownString = textarea.value;
-                    const htmlContent = marked(markdownString);
-                    previewArea.innerHTML = htmlContent;
-                });
-            } else {
-                console.error("marked.js library is not loaded correctly.");
-            }
-             // 初始化代码高亮
-             
-        });
-    </script>
-    
+    <script src="{{ url_for('static', filename='js/app.js')}} "></script>
 </body>
-
 </html>

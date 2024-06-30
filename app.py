@@ -1,3 +1,4 @@
+# https://github.com/Anionex/Mkdoc-admin
 from flask import Flask, render_template, request, redirect, url_for    
 from config import *
 import os
@@ -28,26 +29,34 @@ def get_dir_list(dir):
     except FileNotFoundError:
         return []
     
-# 功能： 删除最后一个‘/’及以后的内容
-def pre_directory(path):  
-    print(f"matching... path:", path)
-    pattern = r'^(.*)/[^/]+$'
-    match = re.match(pattern, path)
-    if match:
-        return match.group(1)
-    else:
-        return ""  # 如果路径没有匹配到说明上一级为/
+# 功能： 返回上一级目录
+def pre_directory(path):
+    # 如果路径为空，返回当前目录的父目录
+    if not path:
+        return ""
+
+    # 标准化路径，去掉末尾的斜杠并解析相对路径
+    normalized_path = os.path.normpath(path)
+
+    # 如果路径是一个文件，则获取其所在目录
+    if os.path.isfile(os.path.join(FILE_ROOT_DIR, normalized_path)):
+        normalized_path = os.path.dirname(normalized_path)
+        
+    # 获取父目录
+    parent_dir = os.path.dirname(normalized_path)
+
+    # 返回父目录
+    print(f"now_dir and pre_dir: {path}, {parent_dir}")
+    return os.path.normpath(parent_dir).replace("\\", "/")
     
 
 def get_js_file_list(dir):
     try:
         js_files = []
-        print("get 1")
-        print(dir)
-        print(os.listdir(dir))
+        # print(dir)
+        # print(os.listdir(dir))
         for item in os.listdir(dir):
             if item.endswith(".js"):
-                print("get one")
                 with open(os.path.join(dir, item), "r", encoding="utf-8") as f:
                     js_files.append({"name": item, "content": f.read()})
         return js_files
@@ -56,9 +65,13 @@ def get_js_file_list(dir):
 
 @app.route('/<path:subpath>', methods=['GET', 'POST'])
 def handle_files(subpath):
+    subpath = os.path.normpath(subpath)
     file_path = os.path.join(FILE_ROOT_DIR, subpath)
-    # 或者当前文件所在目录的子目录和文件信息列表
-    items = get_dir_list(file_path if os.path.isdir(file_path)  else os.path.dirname(file_path))
+
+    if not file_path.startswith(FILE_ROOT_DIR):
+        return "Invalid path", 400
+
+    items = get_dir_list(file_path if os.path.isdir(file_path) else os.path.dirname(file_path))
 
     if request.method == 'POST':
         content = request.form['content']
@@ -73,19 +86,17 @@ def handle_files(subpath):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
     else:
-        content = f"Select a file to edit"
-    # print("os.path.dirname: ", os.path.dirname(file_path) + '/')
+        content = "Select a file to edit"
 
-    # 当前文件所在目录，若已经是目录则不处理
-    my_dir = (os.path.dirname(file_path) + '/').replace(FILE_ROOT_DIR, "") if not os.path.isdir(file_path) else subpath
-    print(f"this is my_dir: ", my_dir)
-    return render_template('index.html', js_file_list=get_js_file_list(JS_DIR), content = content, subpath=subpath, items = items, dir=my_dir, pre_dir=pre_directory(subpath))
+    my_dir = (os.path.dirname(subpath)) if not os.path.isdir(file_path) else subpath
+    my_dir = my_dir.replace('\\','/')
+    return render_template('index.html', js_file_list=get_js_file_list(JS_DIR), content=content, subpath=subpath, items=items, dir=my_dir, pre_dir=pre_directory(subpath))
 
-
+# fixme: file add to previous dir, but sometimes add correctly
 @app.route('/<path:subpath>/add_file', methods=['POST'])
 def add_file(subpath):
     file_path = os.path.join(FILE_ROOT_DIR, subpath) # 文件或目录的绝对路径
-    relative_dir = (os.path.dirname(file_path) + '/').replace(FILE_ROOT_DIR, "") if not os.path.isdir(file_path) else subpath
+    relative_dir = (os.path.dirname(file_path)).replace(FILE_ROOT_DIR, "") if not os.path.isdir(file_path) else subpath
     abs_dir = join(FILE_ROOT_DIR, relative_dir)
     
     # default .md file
@@ -93,13 +104,13 @@ def add_file(subpath):
     # review: regex
     filename = content + '.md' if not re.search(r'\.[a-zA-Z0-9]+$', content) else content
 
-    abs_new_file_path = join(abs_dir + filename)
+    abs_new_file_path = join(abs_dir, filename)
     relative_new_file_path = join(relative_dir, filename)
 
     if os.path.exists(abs_dir) and not os.path.exists(abs_new_file_path):
         with open(abs_new_file_path, "w", encoding="utf-8") as f:
             print(" ", file=f)
-    # print("new file path is ", new_file_path)
+    print("new file path is ", relative_new_file_path)
 
     return redirect(url_for('handle_files', subpath=relative_new_file_path))
 
@@ -108,7 +119,7 @@ def add_file(subpath):
 def delete_file(subpath):
     relative_file_path = request.form['filePath']
     abs_file_path = join(FILE_ROOT_DIR, relative_file_path.lstrip('/'))
-    relative_dir = (os.path.dirname(abs_file_path) + '/').replace(FILE_ROOT_DIR, "") if not os.path.isdir(abs_file_path) else subpath
+    relative_dir = (os.path.dirname(abs_file_path)).replace(FILE_ROOT_DIR, "") if not os.path.isdir(abs_file_path) else subpath
     print(f'{abs_file_path} has not been deleted successfully.')
     if os.path.exists(abs_file_path) and not os.path.isdir(abs_file_path):
         os.remove(abs_file_path)

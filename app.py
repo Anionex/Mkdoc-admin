@@ -1,5 +1,6 @@
 # https://github.com/Anionex/Mkdoc-admin
-from flask import Flask, render_template, request, redirect, url_for    
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask_cors import CORS, cross_origin
 from config import *
 import os
 import re
@@ -125,6 +126,59 @@ def delete_file(subpath):
         os.remove(abs_file_path)
         print(f'{relative_file_path} has been deleted successfully.')
     return redirect(url_for('handle_files', subpath=relative_dir))
+import json
+@app.route('/api/get_some_data', methods=['GET'])
+@cross_origin()
+def get_json_file():
+    # 创建一个示例数据字典
+    data = {
+        "to": "Tove",
+        "from": "Jani",
+        "heading": "Reminder",
+        "body": "Don't forget me this weekend!"
+    }
+
+    
+    # 返回JSON响应
+    return jsonify(data)
+
+@app.route('/api/save_current_file', methods=['POST'])  # 涉及到服务器上内容的更改，所以使用post
+@cross_origin()
+def save_current_file():
+    """
+    保存当前文件内容的接口
+
+    请求方法:
+        POST
+
+    请求参数:
+        - rel_file_path (str): 文件的相对路径
+        - content (str): 要保存的文件内容
+
+    返回:
+        JSON 响应，包含操作的状态和消息
+    """
+    data = request.json
+    print("data: ", data)
+    rel_file_path = data.get('rel_file_path')
+    content = data.get('content')
+    print(f"rel_file_path: {rel_file_path}, content : {content}")
+    # 运用今天学到的防御性编程的技巧, 增加程序的健壮性
+    
+    abs_file_path = os.path.join(FILE_ROOT_DIR, rel_file_path)
+    if os.path.exists(abs_file_path) and os.path.isfile(abs_file_path):
+        with open(abs_file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print("file has been saved")
+        
+        response = {
+            "status": "success",
+            "message": "File saved successfully"
+        }
+        
+        return jsonify(response)
+    else:
+        print("file not exists or it is a dir!")
 
 if __name__ == '__main__':
     app.run(debug=True)

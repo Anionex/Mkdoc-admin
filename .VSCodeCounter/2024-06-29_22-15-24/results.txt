@@ -1,0 +1,75 @@
+Date : 2024-06-29 22:15:24
+Directory : c:\Users\10051\Desktop\learn-to-build
+Total : 29 files,  1360 codes, 405 comments, 414 blanks, all 2179 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Markdown   |         13 |        559 |          0 |        253 |        812 |
+| CSS        |          1 |        263 |          2 |         36 |        301 |
+| JavaScript |          6 |        190 |         27 |         43 |        260 |
+| PowerShell |          1 |        108 |        360 |         35 |        503 |
+| Python     |          2 |         91 |         11 |         19 |        121 |
+| HTML       |          1 |         85 |          2 |          7 |         94 |
+| Batch      |          3 |         55 |          3 |         20 |         78 |
+| Properties |          1 |          5 |          0 |          1 |          6 |
+| XML        |          1 |          4 |          0 |          0 |          4 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         29 |      1,360 |        405 |        414 |      2,179 |
+| . (Files)                                                                 |          3 |         96 |         11 |         20 |        127 |
+| Scripts                                                                   |          3 |        148 |        361 |         52 |        561 |
+| docs                                                                      |         14 |        574 |          2 |        256 |        832 |
+| docs (Files)                                                              |          3 |        164 |          2 |         90 |        256 |
+| docs\CheatSheet                                                           |         10 |        407 |          0 |        165 |        572 |
+| docs\CheatSheet (Files)                                                   |          2 |          3 |          0 |          2 |          5 |
+| docs\CheatSheet\OS                                                        |          3 |          3 |          0 |          3 |          6 |
+| docs\CheatSheet\languages                                                 |          5 |        401 |          0 |        160 |        561 |
+| docs\test                                                                 |          1 |          3 |          0 |          1 |          4 |
+| static                                                                    |          8 |        457 |         29 |         79 |        565 |
+| static\css                                                                |          1 |        263 |          2 |         36 |        301 |
+| static\js                                                                 |          6 |        190 |         27 |         43 |        260 |
+| static\svg                                                                |          1 |          4 |          0 |          0 |          4 |
+| templates                                                                 |          1 |         85 |          2 |          7 |         94 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                  | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\10051\Desktop\learn-to-build\Scripts\Activate.ps1                | PowerShell |        108 |        360 |         35 |        503 |
+| c:\Users\10051\Desktop\learn-to-build\Scripts\activate.bat                | Batch      |         24 |          1 |         10 |         35 |
+| c:\Users\10051\Desktop\learn-to-build\Scripts\deactivate.bat              | Batch      |         16 |          0 |          7 |         23 |
+| c:\Users\10051\Desktop\learn-to-build\app.py                              | Python     |         89 |         11 |         19 |        119 |
+| c:\Users\10051\Desktop\learn-to-build\config.py                           | Python     |          2 |          0 |          0 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\Algorithms.md       | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\Math.md             | Markdown   |          2 |          0 |          1 |          3 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\OS\Linux.md         | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\OS\MacOS.md         | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\OS\Windows.md       | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\languages\CSS.md    | Markdown   |         47 |          0 |         14 |         61 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\languages\HTML.md   | Markdown   |        207 |          0 |         77 |        284 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\languages\Js.md     | Markdown   |         19 |          0 |          9 |         28 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\languages\Python.md | Markdown   |         20 |          0 |         15 |         35 |
+| c:\Users\10051\Desktop\learn-to-build\docs\CheatSheet\languages\jinja.md  | Markdown   |        108 |          0 |         45 |        153 |
+| c:\Users\10051\Desktop\learn-to-build\docs\c  .md                         | Markdown   |        149 |          0 |         85 |        234 |
+| c:\Users\10051\Desktop\learn-to-build\docs\create_docs_structure.bat      | Batch      |         15 |          2 |          3 |         20 |
+| c:\Users\10051\Desktop\learn-to-build\docs\index.md                       | Markdown   |          0 |          0 |          2 |          2 |
+| c:\Users\10051\Desktop\learn-to-build\docs\test\test.md                   | Markdown   |          3 |          0 |          1 |          4 |
+| c:\Users\10051\Desktop\learn-to-build\pyvenv.cfg                          | Properties |          5 |          0 |          1 |          6 |
+| c:\Users\10051\Desktop\learn-to-build\static\css\style.css                | CSS        |        263 |          2 |         36 |        301 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\PreviewAreaHandler.js     | JavaScript |         31 |          3 |          4 |         38 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\app.js                    | JavaScript |          0 |          6 |          0 |          6 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\contextMenu.js            | JavaScript |         80 |          5 |         14 |         99 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\fileOperation.js          | JavaScript |         20 |          6 |          6 |         32 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\sidebarHandler.js         | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\10051\Desktop\learn-to-build\static\js\textAreaHandler.js        | JavaScript |         55 |          7 |         19 |         81 |
+| c:\Users\10051\Desktop\learn-to-build\static\svg\delete_button.svg        | XML        |          4 |          0 |          0 |          4 |
+| c:\Users\10051\Desktop\learn-to-build\templates\index.html                | HTML       |         85 |          2 |          7 |         94 |
+| Total                                                                     |            |      1,360 |        405 |        414 |      2,179 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+

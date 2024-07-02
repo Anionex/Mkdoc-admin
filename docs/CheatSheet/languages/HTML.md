@@ -260,7 +260,13 @@ white-space:nowrap;
 Q：怎么自动换行，这里不是很明白。
 参考https://www.runoob.com/cssref/pr-text-white-space.html
 
+## Url符号转义
 
+https://www.runoob.com/tags/html-urlencode.html
+
+## html符号转义
+
+https://www.cnblogs.com/xcsn/p/3559624.html
 
 
 

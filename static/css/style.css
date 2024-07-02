@@ -8,6 +8,7 @@ body, html {
 .context-menu {
     display: none;
     position: absolute;
+    padding: 2px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10%;
@@ -38,7 +39,7 @@ body, html {
 
 .sidebar-header {
     padding: 10px;
-    border-right: 1px solid #F1F1F1;
+    border-right: 1px solid #D3D5DA;
     text-align: center;
     text-decoration: dashed;
 }

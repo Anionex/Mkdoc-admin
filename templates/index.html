@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Mkdoc Admin</title>
+    <title>Mkdocs Admin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
 </head>
@@ -10,8 +10,8 @@
     <div class="app-container">
         <div class="sidebar-container">
             <div class="sidebar-header">
-                <img src="{{ url_for('static', filename='images/mkdoc_logo.png')}}" alt="">
-                <h1>Mkdoc Admin</h1>
+                <img style="width: 10vw; height: 10vw;"src="{{ url_for('static', filename='images/mkdocs_logo.png')}}" alt="">
+                <h1>Mkdocs Admin</h1>
             </div>
             <div class="sidebar">
                 <div class="side-bar-tools">
@@ -85,7 +85,7 @@
     <!-- <script src="{{ url_for('static', filename='js/app.js')}} "></script> -->
     <script>
         const deleteFileUrl = "{{ url_for('delete_file', subpath=subpath) }}";
-        
+        const relFilePath = "{{ subpath }}";
     </script>
     {% for js_file in js_file_list %}
         <script>{{ js_file.content | safe}}</script>

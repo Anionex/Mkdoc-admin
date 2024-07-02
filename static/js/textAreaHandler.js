@@ -49,7 +49,24 @@ document.getElementById('edit-form').addEventListener('submit', function(event) 
 function confirm_save() {
     // 执行确认操作
     if (confirm("Are you sure you want to save?")) {
-        document.getElementById("edit-form").submit(); // 手动提交表单
+        // document.getElementById("edit-form").submit(); // 手动提交表单
+        dataToSend = {
+            content: document.querySelector(".text-area").value,
+            rel_file_path: relFilePath 
+         }
+ 
+ 
+         var xhr = new XMLHttpRequest()
+         var requestUrl = "http://127.0.0.1:5000/api/save_current_file"
+         xhr.open("POST", requestUrl, true)
+         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+         xhr.onreadystatechange = function() {
+             if(xhr.readyState == 4 && xhr.status == 200) { // readystate=4表示请求已接受并处理
+                 alert("file saved");
+             }
+         }
+         xhr.send(JSON.stringify(dataToSend)); 
+ 
     }
     return false; // 阻止默认的提交操作
 }
@@ -74,6 +91,18 @@ function confirm_discard() {
     }
     return false;
 }
+
+// press ctrl + s can also save the file
+// this approach refresh the page so the content can not be rolled back 
+// so we can change it to ajax at last(status: done)
+document.addEventListener('keydown', function(event) {
+    if(event.ctrlKey && event.key == 's') {
+        event.preventDefault();
+        // 执行textarea的保存方法
+        confirm_save()
+        
+    }
+});
 
 
 

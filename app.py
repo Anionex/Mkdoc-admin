@@ -160,12 +160,13 @@ def save_current_file():
     """
     data = request.json
     print("data: ", data)
-    rel_file_path = data.get('rel_file_path')
+    rel_file_path = str(data.get('rel_file_path'))
     content = data.get('content')
-    print(f"rel_file_path: {rel_file_path}, content : {content}")
+    print(f"rel_file_path: {rel_file_path}")
     # 运用今天学到的防御性编程的技巧, 增加程序的健壮性
     
-    abs_file_path = os.path.join(FILE_ROOT_DIR, rel_file_path)
+    abs_file_path = os.path.join(FILE_ROOT_DIR, rel_file_path.strip('/'))
+    print(f"abs_file_path: {abs_file_path}")
     if os.path.exists(abs_file_path) and os.path.isfile(abs_file_path):
         with open(abs_file_path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -178,7 +179,11 @@ def save_current_file():
         
         return jsonify(response)
     else:
-        print("file not exists or it is a dir!")
+        response = {
+            "status": "failed",
+            "message": "filed to save file"
+        }
+        return response, 500
 
 if __name__ == '__main__':
     app.run(debug=True)

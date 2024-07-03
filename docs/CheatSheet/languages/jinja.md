@@ -94,6 +94,19 @@ ps：jinja会默认渲染成html，可能会存在一些符号的转换，使用
 {{ 18.18 | round | int }}
 # 18
 ```
+
+ps:  safe过滤器只是管渲染进html的时候转不转义。
+比如下面一段代码：
+`const relFilePath = "{{ url_for('handle_files', subpath=subpath) | safe}}";`
+
+明明已经上了safe过滤器，为什么relFilePath里面还是有%5C这样的东西？
+为什么？？
+因为url_for方法已经转义了一次，safe这时不会有任何影响
+所以要再次转义回来：
+```java
+const relFilePath = decodeURIComponent("{{ url_for('handle_files', subpath=subpath)}}");
+```
+
 ## jinja控制结构
 
 具有单分支，多分支等多种结构，

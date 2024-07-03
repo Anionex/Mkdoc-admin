@@ -1,3 +1,5 @@
+
+
 body, html {
     margin: 0;
     padding: 0;
@@ -5,6 +7,7 @@ body, html {
     height: 100%;
     overflow: hidden;
 }
+
 .context-menu {
     display: none;
     position: absolute;
@@ -31,10 +34,11 @@ body, html {
 }
 
 .sidebar-container {
-    width: 300px;
+    width: 225px; flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    transition: width 0.3s;
+    transition: width 0.2s ease-in-out;
+    overflow-x: hidden;
 }
 
 .sidebar-header {
@@ -64,17 +68,20 @@ body, html {
     border-right: 1px solid #D2D5DA;
     padding: 10px;
     overflow-y: auto;
-    transition: width 0.3s;
+    transition: width 0.2s ease-in-out;
+    overflow-x: hidden;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */ 
+    -ms-overflow-style: none; /* IE 10+ */
 }
-
-.sidebar.collapsed {
-    width: 0;
-    overflow: hidden;
+.sidebar::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
 }
+    
 
 .sidebar-container.collapsed {
     width: 0px;
-    overflow: hidden;
+
 }
 
 .collapse-button {
@@ -172,6 +179,7 @@ body, html {
     color: #4285f4;
 }
 
+
 #markdown-content {
     flex-grow: 1;
     padding: 10px;
@@ -179,7 +187,7 @@ body, html {
     text-wrap: nowrap;
 }
 
-.my-button {
+.my-button-bg-black {
     margin: 0 5px;
     border-radius: 5px;
     padding: 5px 10px;
@@ -187,13 +195,26 @@ body, html {
     background-color: #292E43;
     color: whitesmoke;
     cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+}
+.my-button-bg-white {
+    margin: 0 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: solid 1px #D9D9D9;
+    background-color: #FFFFFF;
+    color: #181C18;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
 }
 
-.my-button:hover {
+.my-button-bg-black:hover {
     background-color: #2F3242;
 
 }
-
+.my-button-bg-white:hover {
+    background-color: #F3F4F6;
+}
 .sidebar a {
     text-decoration: none;
     color: black;
@@ -204,8 +225,14 @@ body, html {
     text-overflow: ellipsis;
     white-space:nowrap;
 }
+.sidebar a.active {
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.5); /* 仿真底部灰色阴影 */
+    color: #4285f4;
+}
+
 .hover-grey:hover {
     background-color: #f0f0f0;
+    transition: background-color 0.1s ease-in-out;
 }
 .delete-file-button:hover {
     cursor: pointer;
@@ -227,6 +254,10 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow:hidden;
+}
+.table {
+    border: solid 1px;
 }
 .rounded {
     border-radius: 10%;

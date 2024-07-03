@@ -5,6 +5,7 @@ __pycache__/
 Include/
 Scripts/
 pyvenv.cfg
+docs/
 新建 文本文档.txt
 Lib/
 # C extensions

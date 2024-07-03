@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 Include/
 Scripts/
+pyvenv.cfg
+新建 文本文档.txt
 Lib/
 # C extensions
 *.so

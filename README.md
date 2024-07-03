@@ -1,6 +1,10 @@
 <h1>Mkdocs Admin</h1>
 
 ## 使用方法
+### 首先，安装依赖
+```shell
+pip install -r requirements.txt
+```
 ### windows：
 右键运行start.ps1
 或者
@@ -19,6 +23,10 @@ ___
 <h1>Mkdocs Admin</h1>
 
 ## Usage
+### First, install the dependencies
+```shell
+pip install -r requirements.txt
+```
 ### Windows:
 Right-click to run start.ps1
 or

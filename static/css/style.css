@@ -151,7 +151,7 @@ body, html {
     font-size: 16px;
     resize: none;
     outline: none;
-    text-wrap: nowrap;
+    /* text-wrap: nowrap; */
 }
 
 .preview-header {
@@ -184,7 +184,7 @@ body, html {
     flex-grow: 1;
     padding: 10px;
     overflow: auto;
-    text-wrap: nowrap;
+    /* text-wrap: nowrap; */
 }
 
 .my-button-bg-black {
@@ -256,8 +256,18 @@ body, html {
     align-items: center;
     overflow:hidden;
 }
-.table {
-    border: solid 1px;
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
 }
 .rounded {
     border-radius: 10%;

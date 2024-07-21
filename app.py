@@ -7,6 +7,7 @@ import re
 join = os.path.join
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/') 
 def index():
@@ -93,11 +94,21 @@ def handle_files(subpath):
     my_dir = my_dir.replace('\\','/')
     return render_template('index.html', js_file_list=get_js_file_list(JS_DIR), content=content, subpath=subpath, items=items, dir=my_dir, pre_dir=pre_directory(subpath))
 
+def my_dirname(path):
+    return path if os.path.isdir(path) else os.path.dirname(path)
+
 # fixme: file add to previous dir, but sometimes add correctly
 @app.route('/<path:subpath>/add_file', methods=['POST'])
 def add_file(subpath):
     file_path = os.path.join(FILE_ROOT_DIR, subpath) # 文件或目录的绝对路径
-    relative_dir = (os.path.dirname(file_path)).replace(FILE_ROOT_DIR, "") if not os.path.isdir(file_path) else subpath
+    print(f"file_path: {file_path}")
+    print(f"dirname:", my_dirname(file_path))
+    if(my_dirname(file_path) == "docs"): # need special judge when it is "docs"
+        relative_dir = ""
+    else:
+        relative_dir = (my_dirname(file_path)).replace(FILE_ROOT_DIR, "") if not os.path.isdir(file_path) else subpath
+    if os.path.isdir(file_path):
+        print(f"{file_path} is a directory")
     abs_dir = join(FILE_ROOT_DIR, relative_dir)
     
     # default .md file
@@ -110,7 +121,7 @@ def add_file(subpath):
 
     if os.path.exists(abs_dir) and not os.path.exists(abs_new_file_path):
         with open(abs_new_file_path, "w", encoding="utf-8") as f:
-            print(" ", file=f)
+            print(f"# {content}" + "\n" * 20 + "<br>" * 10, file=f)
     print("new file path is ", relative_new_file_path)
 
     return redirect(url_for('handle_files', subpath=relative_new_file_path))

@@ -1,5 +1,5 @@
-function deleteFile(button) {
-    if (confirm("Are you sure you want to delete this file?")) {
+function deleteFile(button, fileName) {
+    if (confirm(`Are you sure you want to delete ${fileName} ?`)) {
         const fileItem = button.parentElement;
         const filePath = fileItem.querySelector('.file-link').getAttribute('href');
         // Create a form

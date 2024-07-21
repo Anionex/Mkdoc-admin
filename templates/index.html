@@ -36,7 +36,7 @@
                                 <a class="file-link" href="{{ url_for('handle_files', subpath=dir +'/'+ item.name) }}">📃 {{ item.name }}</a>
                                 {% endif %}
                             {% endif %}
-                            <img onclick="deleteFile(this)" class="delete-file-button cursor-pointer hover-grey rounded" src="{{ url_for('static', filename='svg/delete_button.svg') }}">
+                            <img onclick="deleteFile(this, '{{ item.name }}')" class="delete-file-button cursor-pointer hover-grey rounded" src="{{ url_for('static', filename='svg/delete_button.svg') }}">
                         </li>
                     {% endfor %}
                 </ul>

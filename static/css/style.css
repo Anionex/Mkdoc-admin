@@ -187,6 +187,10 @@ body, html {
     /* text-wrap: nowrap; */
 }
 
+#markdown-content img {
+    width: 40vw;
+    height: auto;
+}
 .my-button-bg-black {
     margin: 0 5px;
     border-radius: 5px;
